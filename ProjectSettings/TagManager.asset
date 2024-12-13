@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - GarbageCollector
+  - Bowl
+  - QDSUISecondaryButton
+  - QDSUIPrimaryButton
+  - QDSUISharedThemeColor
+  - QDSUIAccentColor
+  - QDSUIIcon
+  - Frame
+  - Tray
+  - QDSUIToggleButton
+  - QDSUIBorderlessButton
+  - QDSUITextSecondaryColor
+  - QDSUIDestructiveButton
+  - ControllerGrab
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - NoSelfCollision
+  - Book
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

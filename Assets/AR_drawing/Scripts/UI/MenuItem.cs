@@ -11,6 +11,7 @@ public class MenuItem : MonoBehaviour
     Vector3 startingScale;
 
     [SerializeField] private int m_menuItemID;
+    [SerializeField] private MenuTarget m_menuTarget;
 
 
     private void OnEnable()
@@ -30,6 +31,10 @@ public class MenuItem : MonoBehaviour
         m_menuHolder = MenuHolder.Instance;
         m_menuItemMoveMultiplier = m_menuHolder.MenuItemMoveMultiplier;
         startingScale = transform.localScale;
+
+
+        if (!m_menuTarget) return;
+        m_menuTarget.MenuItem = this;
     }
 
     // Update is called once per frame
@@ -59,4 +64,11 @@ public class MenuItem : MonoBehaviour
         DOTween.Kill(transform);
         transform.DOScale(m_isActivated ? startingScale : Vector3.zero, 0.5f);
     }
+
+    public void WhenSelect()
+    {
+        if (m_menuTarget)
+            m_menuTarget.WhenSelect();
+    }
+
 }

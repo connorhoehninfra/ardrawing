@@ -9,7 +9,7 @@ using UnityEngine;
 public class FurnitureManager : MonoBehaviour
 {
     MRUKRoom mrUKRoom;
-    public GameObject rayDetectablePrefab, UIPrefab;
+    public GameObject rayDetectablePrefab, UIGuide;
     public static FurnitureManager Instance;
     private Furniture selectedFurniture;
     public Furniture SelectedFurniture { set { selectedFurniture = value; } get { return selectedFurniture; } }
@@ -54,7 +54,7 @@ public class FurnitureManager : MonoBehaviour
         if (selectedFurniture) return;
         selectedFurniture = furniture;
         Quaternion correctionOffset = Quaternion.Euler(0, 180, 0);
-        Instantiate(UIPrefab, position, rotation * correctionOffset);
+        Instantiate(UIGuide, position, rotation * correctionOffset);
 
     }
 

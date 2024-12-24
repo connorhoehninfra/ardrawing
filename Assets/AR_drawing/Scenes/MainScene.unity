@@ -902,7 +902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rayDetectablePrefab: {fileID: 2355273325137105111, guid: 318483523c813bf4783a417dbe44976d, type: 3}
-  UIPrefab: {fileID: 4412460161382015912, guid: 29c3102f199f9f846b63f2ff3a20fbad, type: 3}
+  UIGuide: {fileID: 4412460161382015912, guid: 29c3102f199f9f846b63f2ff3a20fbad, type: 3}
 --- !u!1001 &5481825655982574516
 PrefabInstance:
   m_ObjectHideFlags: 0

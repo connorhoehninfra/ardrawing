@@ -11,44 +11,52 @@ public class Furniture : MonoBehaviour
 
     MeshRenderer furnitureMesh;
     Material furnitureMaterial;
-    float defaultAlpha;
     PointableUnityEventWrapper pointableUnityEventWrapper;
+    bool isSelected = false;
+
+
     void Start()
     {
         furnitureMesh = transform.parent.GetComponentInChildren<MeshRenderer>();
         furnitureMaterial = furnitureMesh.materials[0];
-        defaultAlpha = furnitureMaterial.color.a;
-
-        // pointableUnityEventWrapper = GetComponent<PointableUnityEventWrapper>();
-        // pointableUnityEventWrapper.WhenHover.AddListener(WhenHover);
-        // pointableUnityEventWrapper.WhenUnhover.AddListener(WhenUnHover);
-        // pointableUnityEventWrapper.WhenSelect.AddListener(WhenSelect);
-        // pointableUnityEventWrapper.WhenUnselect.AddListener(WhenUnselect);
     }
 
 
     public void WhenHover(PointerEvent arg0)
     {
-        DOTween.Kill(furnitureMaterial);
-        furnitureMaterial.DOFade(defaultAlpha + 0.2f, 0.5f);
+        // if (isSelected) return;
+        // DOTween.Kill(furnitureMaterial);
+        // furnitureMaterial.DOFade(hoverAlpha, 0.5f);
     }
 
 
     public void WhenUnHover(PointerEvent arg0)
     {
-        DOTween.Kill(furnitureMaterial);
-        furnitureMaterial.DOFade(defaultAlpha, 0.5f);
+        // if (isSelected) return;
+        // DOTween.Kill(furnitureMaterial);
+        // furnitureMaterial.DOFade(defaultAlpha, 0.5f);
     }
 
     public void WhenSelect(PointerEvent arg0)
     {
-        DOTween.Kill(furnitureMaterial);
-        furnitureMaterial.DOFade(0.9f, 0.5f);
+        // if (isSelected) return;
+        // isSelected = true;
+        // DOTween.Kill(furnitureMaterial);
+        // furnitureMaterial.DOFade(1, 0.5f);
+        FurnitureManager.Instance.RegisterAsSelected(this, arg0.Pose.position, arg0.Pose.rotation);
     }
+
+    public void DeSelect()
+    {
+        // isSelected = false;
+        // DOTween.Kill(furnitureMaterial);
+        // furnitureMaterial.DOFade(defaultAlpha, 0.5f);
+    }
+
 
     public void WhenUnselect(PointerEvent arg0)
     {
-        DOTween.Kill(furnitureMaterial);
-        furnitureMaterial.DOFade(defaultAlpha, 0.5f);
+        // DOTween.Kill(furnitureMaterial);
+        // furnitureMaterial.DOFade(defaultAlpha, 0.5f);
     }
 }

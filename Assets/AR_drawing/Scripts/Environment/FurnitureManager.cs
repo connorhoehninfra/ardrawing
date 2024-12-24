@@ -9,7 +9,19 @@ using UnityEngine;
 public class FurnitureManager : MonoBehaviour
 {
     MRUKRoom mrUKRoom;
-    public GameObject rayPrefab;
+    public GameObject rayDetectablePrefab, UIPrefab;
+    public static FurnitureManager Instance;
+    private Furniture selectedFurniture;
+    public Furniture SelectedFurniture { set { selectedFurniture = value; } get { return selectedFurniture; } }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+            Destroy(gameObject);
+        else
+            Instance = this;
+    }
+
 
     public void RoomCreatedListener(MRUKRoom mrUKRoom)
     {
@@ -24,24 +36,9 @@ public class FurnitureManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         foreach (var child in mrUKRoom.Anchors)
         {
-            // if (child.VolumeBounds.HasValue)
             if (child.HasAnyLabel(MRUKAnchor.SceneLabels.TABLE))
             {
-                // var colliderSurface = child.AddComponent<ColliderSurface>();
-                // var pointableElement = child.AddComponent<PointableElement>();
-                // var rayInteractable = child.AddComponent<RayInteractable>();
-                // var collider = child.gameObject.GetComponentInChildren<Collider>();
-                // var pointableUnityEventWrapper = child.AddComponent<PointableUnityEventWrapper>();
-
-
-                // if (!collider) Debug.LogError("Couldnt find collider");
-                // colliderSurface.InjectCollider(collider);
-                // rayInteractable.InjectOptionalPointableElement(pointableElement);
-                // rayInteractable.InjectSurface(colliderSurface);
-                // pointableUnityEventWrapper.InjectPointable(rayInteractable);
-
-                // child.AddComponent<Furniture>();
-                Instantiate(rayPrefab, child.transform);
+                Instantiate(rayDetectablePrefab, child.transform);
                 var colliderSurface = child.GetComponentInChildren<ColliderSurface>();
                 var collider = child.gameObject.GetComponentInChildren<Collider>();
                 colliderSurface.InjectCollider(collider);
@@ -49,4 +46,16 @@ public class FurnitureManager : MonoBehaviour
             }
         }
     }
+
+
+
+    public void RegisterAsSelected(Furniture furniture, Vector3 position, Quaternion rotation)
+    {
+        if (selectedFurniture) return;
+        selectedFurniture = furniture;
+        Quaternion correctionOffset = Quaternion.Euler(0, 180, 0);
+        Instantiate(UIPrefab, position, rotation * correctionOffset);
+
+    }
+
 }

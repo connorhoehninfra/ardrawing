@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2888193782043654886}
   - component: {fileID: -6215637103615165207}
   m_Layer: 0
-  m_Name: RayObject
+  m_Name: RayDetectorObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

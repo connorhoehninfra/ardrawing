@@ -11,8 +11,8 @@ public class FurnitureManager : MonoBehaviour
     MRUKRoom mrUKRoom;
     public GameObject rayDetectablePrefab, UIGuide;
     public static FurnitureManager Instance;
-    private Furniture selectedFurniture;
-    public Furniture SelectedFurniture { set { selectedFurniture = value; } get { return selectedFurniture; } }
+    public Furniture SelectedFurniture;
+    public GameObject guideUI;
 
     private void Awake()
     {
@@ -51,10 +51,10 @@ public class FurnitureManager : MonoBehaviour
 
     public void RegisterAsSelected(Furniture furniture, Vector3 position, Quaternion rotation)
     {
-        if (selectedFurniture) return;
-        selectedFurniture = furniture;
+        if (SelectedFurniture) return;
+        SelectedFurniture = furniture;
         Quaternion correctionOffset = Quaternion.Euler(0, 180, 0);
-        Instantiate(UIGuide, position, rotation * correctionOffset);
+        guideUI = Instantiate(UIGuide, position, rotation * correctionOffset);
 
     }
 

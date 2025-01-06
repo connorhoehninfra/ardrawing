@@ -20,9 +20,9 @@ public class MenuTarget : MonoBehaviour
         // isActive = !isActive;
         DOTween.Kill(transform);
         // transform.DOScale(isActive ? 1f : 0f, 1f);
-        // if (isActive)
+        if (FurnitureManager.Instance.guideUI)
         {
-            transform.position = Camera.main.transform.position + Camera.main.transform.forward * 0.5f;
+            transform.position = FurnitureManager.Instance.guideUI.transform.position + Vector3.up * 0.5f;
             //    transform.LookAt(Camera.main.transform);
 
             // Get the direction towards the camera

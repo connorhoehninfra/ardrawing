@@ -22,6 +22,8 @@ TagManager:
   - QDSUIToggleBorderlessButton
   - QDSUISection
   - QDSUITooltip
+  - QDSUIToggleSwitch
+  - QDSUIToggleCheckboxRadio
   layers:
   - Default
   - TransparentFX

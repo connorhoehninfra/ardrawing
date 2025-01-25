@@ -18,6 +18,10 @@ TagManager:
   - QDSUITextSecondaryColor
   - QDSUIDestructiveButton
   - ControllerGrab
+  - QDSUITextInputField
+  - QDSUIToggleBorderlessButton
+  - QDSUISection
+  - QDSUITooltip
   layers:
   - Default
   - TransparentFX

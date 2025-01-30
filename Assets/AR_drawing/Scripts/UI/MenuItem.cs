@@ -34,7 +34,7 @@ public class MenuItem : MonoBehaviour
 
 
         if (!m_menuTarget) return;
-        m_menuTarget.MenuItem = this;
+        // m_menuTarget.MenuItem = this;
     }
 
     // Update is called once per frame

@@ -1,5 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
+using System.Collections;
+using UnityEngine.UI;
 
 public class LocalMenu : MenuTarget
 {
@@ -12,7 +14,8 @@ public class LocalMenu : MenuTarget
     bool rotateClockwise, shouldIncreaseScale;
 
     bool shouldMove, shouldRotate, shouldScale;
-
+    [SerializeField] Slider timeSlider;
+    private Coroutine countDownCo;
 
     override public void WhenSelect()
     {
@@ -119,6 +122,35 @@ public class LocalMenu : MenuTarget
         shouldRotate = false;
         shouldScale = false;
     }
+
+    public void ConfirmPlacement()
+    {
+        countDownCo = StartCoroutine(StartTimer());
+    }
+
+
+    IEnumerator StartTimer()
+    {
+        float totalTime = 30f;
+        timeSlider.value = 1f;
+
+        float timeLeft = totalTime;
+        while (timeLeft > 0f)
+        {
+            yield return new WaitForSeconds(Time.deltaTime);
+            timeLeft -= Time.deltaTime;
+            timeSlider.value = 1f - timeLeft / totalTime;
+        }
+
+    }
+
+
+
+    public void DoneWithDrawing()
+    {
+        StopCoroutine(countDownCo);
+    }
+
 
 
 }

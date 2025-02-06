@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class LocalMenu : MenuTarget
 {
+    [SerializeField] Slider timeSlider;
+    [SerializeField] GameObject markerPrefab;
     Transform guideUI;
     float movementMultiplier = 0.05f;
     float rotateMultiplier = 5f;
@@ -14,7 +16,6 @@ public class LocalMenu : MenuTarget
     bool rotateClockwise, shouldIncreaseScale;
 
     bool shouldMove, shouldRotate, shouldScale;
-    [SerializeField] Slider timeSlider;
     private Coroutine countDownCo;
 
     override public void WhenSelect()
@@ -126,6 +127,7 @@ public class LocalMenu : MenuTarget
     public void ConfirmPlacement()
     {
         countDownCo = StartCoroutine(StartTimer());
+        Instantiate(markerPrefab, guideUI.position, Quaternion.identity);
     }
 
 

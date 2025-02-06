@@ -6291,6 +6291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeSlider: {fileID: 7752032867540723587}
+  markerPrefab: {fileID: 1743685599396459831, guid: 4b421693056f4514fb0af2c6a401a1be, type: 3}
 --- !u!1 &2205044826414839502
 GameObject:
   m_ObjectHideFlags: 0

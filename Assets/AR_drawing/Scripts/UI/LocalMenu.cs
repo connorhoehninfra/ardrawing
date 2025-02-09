@@ -22,7 +22,6 @@ public class LocalMenu : MenuTarget
     {
         if (!guideUI) guideUI = FurnitureManager.Instance.guideUI.transform;
         base.WhenSelect();
-        Debug.Log("Yeet");
         DOTween.Kill(transform);
 
 
@@ -133,6 +132,8 @@ public class LocalMenu : MenuTarget
 
     IEnumerator StartTimer()
     {
+        guideUI.TryGetComponent<GuideHandler>(out var guideHandler);
+        if (guideHandler) guideHandler.ActivateGuide(true);
         float totalTime = 30f;
         timeSlider.value = 1f;
 

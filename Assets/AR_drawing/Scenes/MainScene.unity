@@ -1075,6 +1075,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7871002575362899908, guid: add55bee67eba2d4d9d9f890a3dee62a, type: 3}
+      propertyPath: markerPrefab
+      value: 
+      objectReference: {fileID: 5452768141421319983, guid: cff0f026fa0e7e14cb19f70882006458, type: 3}
     - target: {fileID: 8076485039269428871, guid: add55bee67eba2d4d9d9f890a3dee62a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.109

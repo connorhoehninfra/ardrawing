@@ -5,13 +5,15 @@ using DG.Tweening;
 using Meta.XR.MRUtilityKit.SceneDecorator;
 
 
-// [ExecuteInEditMode]
 public class Outline : MonoBehaviour
 {
     public RectTransform MyRectTransform;
     public RectTransform ChildRectTransform;
 
-
+    private void OnEnable()
+    {
+        FocusModeMenu.FocusModeNotifier += FocusModeListener;
+    }
 
     private void Start()
     {
@@ -19,24 +21,24 @@ public class Outline : MonoBehaviour
         MyRectTransform.sizeDelta = ChildRectTransform.sizeDelta;
     }
 
-    // private void Update()
-    // {
-    //     MyRectTransform.sizeDelta = ChildRectTransform.sizeDelta + ChildRectTransform.sizeDelta / 20f;
-
-    // }
 
 
-    public void OnHover(bool value)
+    public void FocusModeListener(bool value)
     {
 
-        Debug.Log("hover " + value);
         DOTween.Kill(MyRectTransform);
 
-        //If we are hovering, add border effect else scale down to target scale
+        // if (value)
+        //     MyRectTransform.DOSizeDelta(ChildRectTransform.sizeDelta + ChildRectTransform.sizeDelta / 40f, 1f);
+        // else
+        //     MyRectTransform.DOSizeDelta(ChildRectTransform.sizeDelta, 1f);
+
+
         if (value)
-            MyRectTransform.DOSizeDelta(ChildRectTransform.sizeDelta + ChildRectTransform.sizeDelta / 40f, 1f);
+            MyRectTransform.DOScale(1.1f, 2f);
         else
-            MyRectTransform.DOSizeDelta(ChildRectTransform.sizeDelta, 1f);
+            MyRectTransform.DOScale(1f, 2f);
+
 
     }
 }

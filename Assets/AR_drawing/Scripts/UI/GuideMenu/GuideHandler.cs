@@ -10,5 +10,11 @@ public class GuideHandler : MonoBehaviour
         guideImage.enabled = value;
     }
 
+    public void SetOpacity(float value)
+    {
+        Color newColor = guideImage.color;
+        newColor.a = value;
+        guideImage.color = newColor;
+    }
 
 }

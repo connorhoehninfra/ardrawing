@@ -7,7 +7,8 @@ public class LocalMenu : MenuTarget
 {
     [SerializeField] Slider timeSlider;
     [SerializeField] GameObject markerPrefab;
-    Transform guideUI;
+    Transform guideUITransform;
+    GuideHandler guideHandler;
     float movementMultiplier = 0.05f;
     float rotateMultiplier = 5f;
     float scaleMultiplier = 0.2f;
@@ -20,15 +21,15 @@ public class LocalMenu : MenuTarget
 
     override public void WhenSelect()
     {
-        if (!guideUI) guideUI = FurnitureManager.Instance.guideUI.transform;
-        base.WhenSelect();
+        if (!guideUITransform) guideUITransform = FurnitureManager.Instance.guideUI.transform;
+        if (!guideHandler) guideUITransform.TryGetComponent<GuideHandler>(out guideHandler);
         DOTween.Kill(transform);
 
 
         //If the guide UI is still not set, return
-        if (!guideUI) return;
+        if (!guideUITransform) return;
         {
-            transform.position = guideUI.transform.position + Vector3.up * 0.5f;
+            transform.position = guideUITransform.transform.position + Vector3.up * 0.5f;
 
             // Get the direction towards the camera
             Vector3 directionToCamera = Camera.main.transform.position - transform.position;
@@ -49,32 +50,32 @@ public class LocalMenu : MenuTarget
             {
                 case 0:
                     {
-                        guideUI.position = guideUI.position + guideUI.up * movementMultiplier * Time.deltaTime;
+                        guideUITransform.position = guideUITransform.position + guideUITransform.up * movementMultiplier * Time.deltaTime;
                         break;
                     }
                 case 1:
                     {
-                        guideUI.position = guideUI.position + guideUI.up * -movementMultiplier * Time.deltaTime;
+                        guideUITransform.position = guideUITransform.position + guideUITransform.up * -movementMultiplier * Time.deltaTime;
                         break;
                     }
                 case 2:
                     {
-                        guideUI.position = guideUI.position + guideUI.right * -movementMultiplier * Time.deltaTime;
+                        guideUITransform.position = guideUITransform.position + guideUITransform.right * -movementMultiplier * Time.deltaTime;
                         break;
                     }
                 case 3:
                     {
-                        guideUI.position = guideUI.position + guideUI.right * movementMultiplier * Time.deltaTime;
+                        guideUITransform.position = guideUITransform.position + guideUITransform.right * movementMultiplier * Time.deltaTime;
                         break;
                     }
                 case 4:
                     {
-                        guideUI.position = guideUI.position + guideUI.forward * -movementMultiplier * Time.deltaTime;
+                        guideUITransform.position = guideUITransform.position + guideUITransform.forward * -movementMultiplier * Time.deltaTime;
                         break;
                     }
                 case 5:
                     {
-                        guideUI.position = guideUI.position + guideUI.forward * movementMultiplier * Time.deltaTime;
+                        guideUITransform.position = guideUITransform.position + guideUITransform.forward * movementMultiplier * Time.deltaTime;
                         break;
                     }
                 default: break;
@@ -83,11 +84,11 @@ public class LocalMenu : MenuTarget
         }
         else if (shouldRotate)
         {
-            guideUI.rotation = Quaternion.Euler(guideUI.rotation.eulerAngles + (Vector3.up * rotateMultiplier * (rotateClockwise ? 1f : -1f)) * Time.deltaTime);
+            guideUITransform.rotation = Quaternion.Euler(guideUITransform.rotation.eulerAngles + (Vector3.up * rotateMultiplier * (rotateClockwise ? 1f : -1f)) * Time.deltaTime);
         }
         else if (shouldScale)
         {
-            guideUI.localScale = guideUI.localScale + (Vector3.one * scaleMultiplier * (shouldIncreaseScale ? 1f : -1f) * Time.deltaTime);
+            guideUITransform.localScale = guideUITransform.localScale + (Vector3.one * scaleMultiplier * (shouldIncreaseScale ? 1f : -1f) * Time.deltaTime);
         }
     }
 
@@ -126,14 +127,14 @@ public class LocalMenu : MenuTarget
     public void ConfirmPlacement()
     {
         countDownCo = StartCoroutine(StartTimer());
-        Instantiate(markerPrefab, guideUI.position, Quaternion.identity);
+        Instantiate(markerPrefab, guideUITransform.position, Quaternion.identity);
     }
 
 
     IEnumerator StartTimer()
     {
-        guideUI.TryGetComponent<GuideHandler>(out var guideHandler);
-        if (guideHandler) guideHandler.ActivateGuide(true);
+        if (!guideHandler) guideUITransform.TryGetComponent<GuideHandler>(out guideHandler);
+        guideHandler.ActivateGuide(true);
         float totalTime = 30f;
         timeSlider.value = 1f;
 
@@ -144,6 +145,12 @@ public class LocalMenu : MenuTarget
             timeLeft -= Time.deltaTime;
             timeSlider.value = 1f - timeLeft / totalTime;
         }
+
+    }
+
+    public void AdjustGuideOpacity(float value)
+    {
+        guideHandler.SetOpacity(value);
 
     }
 

@@ -7,6 +7,9 @@ public class LocalMenu : MenuTarget
 {
     [SerializeField] Slider timeSlider;
     [SerializeField] GameObject markerPrefab;
+    [SerializeField] GameObject balloonPrefab;
+    [SerializeField] OVRPassthroughLayer oVRPassthroughLayer;
+
     Transform guideUITransform;
     GuideHandler guideHandler;
     float movementMultiplier = 0.05f;
@@ -159,8 +162,27 @@ public class LocalMenu : MenuTarget
     public void DoneWithDrawing()
     {
         StopCoroutine(countDownCo);
+
+        DOTween.Kill(oVRPassthroughLayer);
+        DOTween.To(() => oVRPassthroughLayer.textureOpacity, x => oVRPassthroughLayer.textureOpacity = x, 0.1f, 2f);
+        StartCoroutine(SpawnBalloons());
     }
 
 
+    IEnumerator SpawnBalloons()
+    {
+        int balloonCount = 5;
+        var ceilingPosition = FurnitureManager.Instance.MrUKRoom.CeilingAnchor.transform.position;
+
+        while (balloonCount > 0)
+        {
+            float randomX = Random.Range(-3f, 3f);
+            float randomZ = Random.Range(-3f, 3f);
+            Vector3 offset = new Vector3(randomX, -0.5f, randomZ);
+            Instantiate(balloonPrefab, ceilingPosition + offset, Quaternion.identity);
+            balloonCount--;
+            yield return new WaitForSeconds(Random.Range(0.4f, 1f));
+        }
+    }
 
 }

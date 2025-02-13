@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class FurnitureManager : MonoBehaviour
 {
-    MRUKRoom mrUKRoom;
+    public MRUKRoom MrUKRoom { private set; get; }
     public GameObject rayDetectablePrefab, UIGuide;
     public static FurnitureManager Instance;
     public Furniture SelectedFurniture;
@@ -25,7 +25,7 @@ public class FurnitureManager : MonoBehaviour
 
     public void RoomCreatedListener(MRUKRoom mrUKRoom)
     {
-        this.mrUKRoom = mrUKRoom;
+        this.MrUKRoom = mrUKRoom;
         StartCoroutine(InitializeFurniture());
     }
 
@@ -34,7 +34,7 @@ public class FurnitureManager : MonoBehaviour
     IEnumerator InitializeFurniture()
     {
         yield return new WaitForSeconds(1f);
-        foreach (var child in mrUKRoom.Anchors)
+        foreach (var child in MrUKRoom.Anchors)
         {
             if (child.HasAnyLabel(MRUKAnchor.SceneLabels.TABLE))
             {

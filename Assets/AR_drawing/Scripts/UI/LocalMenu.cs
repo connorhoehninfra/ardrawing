@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class LocalMenu : MenuTarget
 {
     [SerializeField] Slider timeSlider;
-    [SerializeField] GameObject markerPrefab;
     [SerializeField] GameObject balloonPrefab;
     [SerializeField] OVRPassthroughLayer oVRPassthroughLayer;
 
@@ -127,10 +126,17 @@ public class LocalMenu : MenuTarget
         shouldScale = false;
     }
 
+    public void NextTool(bool getNextTool)
+    {
+        var tool = DrawingToolManager.Instance.GetNextTool(getNextTool);
+        Instantiate(tool.Prefab, guideUITransform.position, Quaternion.identity);
+
+    }
+
+
     public void ConfirmPlacement()
     {
         countDownCo = StartCoroutine(StartTimer());
-        Instantiate(markerPrefab, guideUITransform.position, Quaternion.identity);
     }
 
 

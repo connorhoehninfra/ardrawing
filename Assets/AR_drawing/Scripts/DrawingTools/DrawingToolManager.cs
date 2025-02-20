@@ -20,7 +20,7 @@ public class DrawingToolManager : MonoBehaviour
     public DrawingTool GetNextTool(bool getNextTool)
     {
         //Increment the index and return the element
-        selectedTool = getNextTool ? selectedTool++ : selectedTool--;
+        selectedTool += getNextTool ? 1 : -1;
         if (selectedTool >= DrawingTools.Count) selectedTool = 0;
         else if (selectedTool < 0) selectedTool = DrawingTools.Count - 1;
 

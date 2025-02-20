@@ -20,6 +20,7 @@ public class LocalMenu : MenuTarget
 
     bool shouldMove, shouldRotate, shouldScale;
     private Coroutine countDownCo;
+    private GameObject m_currentTool;
 
     override public void WhenSelect()
     {
@@ -128,8 +129,9 @@ public class LocalMenu : MenuTarget
 
     public void NextTool(bool getNextTool)
     {
+        Destroy(m_currentTool);
         var tool = DrawingToolManager.Instance.GetNextTool(getNextTool);
-        Instantiate(tool.Prefab, guideUITransform.position, Quaternion.identity);
+        m_currentTool = Instantiate(tool.Prefab, guideUITransform.position + Vector3.right, Quaternion.identity);
 
     }
 

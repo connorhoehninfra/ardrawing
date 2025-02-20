@@ -2,6 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using System.Collections;
 using UnityEngine.UI;
+using PaintIn3D;
 
 public class LocalMenu : MenuTarget
 {
@@ -131,8 +132,21 @@ public class LocalMenu : MenuTarget
     {
         Destroy(m_currentTool);
         var tool = DrawingToolManager.Instance.GetNextTool(getNextTool);
-        m_currentTool = Instantiate(tool.Prefab, guideUITransform.position + Vector3.right, Quaternion.identity);
-
+        m_currentTool = Instantiate(tool.Prefab, guideUITransform.position + Vector3.right * 0.3f, Quaternion.identity);
+        if (tool.overridePrefabSettings)
+        {
+            CwPaintSphere cwPaintSphere = m_currentTool.GetComponentInChildren<CwPaintSphere>();
+            if (cwPaintSphere)
+            {
+                cwPaintSphere.Color = tool.InkColor;
+                cwPaintSphere.Radius = tool.Thickness;
+                cwPaintSphere.Hardness = tool.Hardness;
+            }
+            else
+            {
+                Debug.LogError("Can't find script to override settings");
+            }
+        }
     }
 
 

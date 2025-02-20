@@ -8,5 +8,5 @@ public class DrawingTool : ScriptableObject
     public bool overridePrefabSettings;
     public Color InkColor;
     public float Thickness;
-    public float Drag;
+    public float Hardness;
 }

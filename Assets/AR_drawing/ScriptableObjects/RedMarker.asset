@@ -16,5 +16,5 @@ MonoBehaviour:
   Prefab: {fileID: 5452768141421319983, guid: cff0f026fa0e7e14cb19f70882006458, type: 3}
   overridePrefabSettings: 0
   InkColor: {r: 1, g: 0, b: 0, a: 1}
-  Thickness: 2
-  Drag: 2
+  Thickness: 0.005
+  Hardness: 5
